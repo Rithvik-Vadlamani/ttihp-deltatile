@@ -7,8 +7,12 @@ import sys
 
 path = Path(sys.argv[1] if len(sys.argv) > 1 else "runs/wokwi/final/metrics.csv")
 with path.open(newline="") as stream:
-    metrics = {row["Metric"]: float(row["Value"]) for row in csv.DictReader(stream)
-               if row["Value"] not in ("", "None")}
+    metrics = {}
+    for row in csv.DictReader(stream):
+        try:
+            metrics[row["Metric"]] = float(row["Value"])
+        except ValueError:
+            pass  # Non-numeric metadata such as floorplan rectangles.
 
 required_zero = [
     "design__lint_error__count", "design__lint_warning__count",
