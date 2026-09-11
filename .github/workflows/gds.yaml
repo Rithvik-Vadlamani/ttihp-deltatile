@@ -1,0 +1,26 @@
+name: gds
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gds:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build GDS using official IHP26b flow
+        uses: TinyTapeout/tt-gds-action@ttihp26b
+        with:
+          pdk: ihp-sg13g2
+  precheck:
+    needs: gds
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: TinyTapeout/tt-gds-action/precheck@ttihp26b
+  gl_test:
+    needs: gds
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: TinyTapeout/tt-gds-action/gl_test@ttihp26b
