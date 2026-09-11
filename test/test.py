@@ -8,6 +8,7 @@ from cocotb.triggers import Timer
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from model.delta_reference import dense, correction_tokens
+from host.deltatile import plan_frame, decode_scores
 
 
 def nibble_pair(a, b):
@@ -212,3 +213,30 @@ async def directed_abort_hold_errors_and_wrap(dut):
     for _ in range(40):
         await p.token([-8, -8], [-8, -8])
     assert await p.read_scores() == [[-1536, -1536], [-1536, -1536]]
+
+
+@cocotb.test()
+async def host_packet_plans_on_chip(dut):
+    p = Pins(dut)
+    await p.reset()
+    rng = random.Random(6241)
+    weights = [[rng.randrange(-8, 8) for _ in range(2)] for _ in range(16)]
+    previous = None
+    features = [[0] * 16 for _ in range(2)]
+    observed_modes = set()
+    for frame in range(200):
+        features = [[v if rng.random() < (0.95 if frame % 2 else 0)
+                     else rng.randrange(-8, 8) for v in row] for row in features]
+        plan = plan_frame(features, weights, previous)
+        observed_modes.add(plan.mode)
+        data = []
+        for cmd, payload in plan.commands:
+            await p.command(cmd, payload)
+            status = int(dut.uio_out.value)
+            assert not status & 0x40
+            if cmd == 4:
+                assert status & 0x80
+                data.append(int(dut.uo_out.value))
+        assert decode_scores(data) == dense(features, weights)
+        previous = [row[:] for row in features]
+    assert observed_modes == {"dense", "incremental"}
