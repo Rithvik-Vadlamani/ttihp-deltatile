@@ -2,13 +2,14 @@
 
 Proposed direction: **DeltaTile**, a 2×2 signed INT4 systolic accelerator that retains four scores and updates them from changes in input features.
 
-Status: RTL and a pin-level verification suite are implemented. Physical implementation and submission are in progress. One-tile fit, timing, power, application accuracy, and final purchase cost remain unverified until reports are available.
+Status: RTL tests, gate-level tests, the one-tile physical build, strict signoff metrics, and the official IHP26b precheck pass for implementation revision `72cf3db7bd78a53d63e1f8e8d39cbff5dc5a253c`. Fabrication submission/payment and physical silicon validation remain outstanding. Power and application accuracy have not been measured.
 
 - [Design proposal and tapeout milestones](docs/deltatile-proposal.md)
 - [Executable arithmetic model](model/delta_reference.py)
 - [Chip interface and bring-up vectors](docs/info.md)
 - [RTL](src/project.v) and [pin-level tests](test/test.py)
 - [Physical board bring-up](docs/bringup.md)
+- [Signoff results and remaining submission steps](docs/signoff.md)
 
 Run the model checks with `python3 model/delta_reference.py` from this directory. These checks validate arithmetic and workload counts, not clock-level behavior or silicon feasibility.
 
