@@ -17,4 +17,26 @@ For a workspace path containing spaces, run `python3 scripts/run_local_tests.py 
 
 `host/deltatile.py` plans dense/incremental frames, splits large corrections, checks readback, and accepts a caller-provided bus transport. Host packet plans are exercised against the chip by the fifth Cocotb test.
 
+The five chip tests cover every signed 4-bit multiplier input pair, 400 incremental matrix transitions, 15,000 randomized protocol cycles, abort/reset/hold/error behavior, and 200 host-planned frames. Run the additional 13 host validation tests with `python -m pytest -q test/test_host.py`.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  A0[Row 0 activation] --> PE00[PE00: C00]
+  B0[Column 0 weight] --> PE00
+  PE00 -->|activation| PE01[PE01: C01]
+  PE00 -->|weight| PE10[PE10: C10]
+  A1[Row 1 activation, delayed] --> PE10
+  B1[Column 1 weight, delayed] --> PE01
+  PE10 -->|activation| PE11[PE11: C11]
+  PE01 -->|weight| PE11
+```
+
+The array keeps four scores; the host owns feature history and weights. CLEAR initializes a dense computation, while subsequent tokens can apply exact corrections without clearing. A token uses two bus clocks; its final product completes two clocks after launch. Readback takes eight bytes.
+
+## Synthetic traffic experiment
+
+Run `python3 scripts/benchmark.py` to reproduce [the traffic results](docs/synthetic-traffic.json). For 2x16 bounded INT4 random-walk features with a 5% change-attempt probability per feature per frame, the measured software packet count is 13.1075 command clocks per frame versus 43 for dense refresh (3.28x fewer command clocks). This includes clear when needed, two drain clocks, and eight readback clocks. It excludes host computation, acquisition, electrical bus delays, and power; it is not a silicon performance or classification-accuracy result.
+
 Template provenance: TinyTapeout/ttihp-verilog-template at `6598bef4d3159f19fe471a2a2225df52e6f5ad25`. The original template license is retained in LICENSE. RTL is original to this project.

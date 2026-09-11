@@ -1,6 +1,6 @@
 # DeltaTile: a small accelerator for changing sensor features
 
-Architecture proposal, 2026-09-11. Parameters below are design targets, not measured implementation results.
+Architecture proposal, 2026-09-11. This records the original rationale. The implemented pin/cycle contract is in [info.md](info.md), which supersedes tentative interface choices below. Physical signoff status is tracked separately; parameters here are not measured results.
 
 ## Recommendation
 

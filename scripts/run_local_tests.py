@@ -33,7 +33,9 @@ with tempfile.TemporaryDirectory(prefix="deltatile-") as tmp:
             shutil.copy2(build / "test" / name, evidence / name)
     if result.returncode:
         raise SystemExit(result.returncode)
-    xml = ET.parse(evidence / "results.xml")
+    if not (build / "test" / "results.xml").exists():
+        raise SystemExit("Simulation produced no result XML")
+    xml = ET.parse(build / "test" / "results.xml")
     if list(xml.iter("failure")) or list(xml.iter("error")) or not list(xml.iter("testcase")):
         raise SystemExit("Simulation did not produce a clean test result")
 print(f"Verification evidence: {evidence}")

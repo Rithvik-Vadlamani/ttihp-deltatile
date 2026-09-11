@@ -25,6 +25,8 @@ jobs:
 
       - name: Run tests
         run: |
+          python model/delta_reference.py
+          python -m pytest -q test/test_host.py
           cd test
           make clean
           make

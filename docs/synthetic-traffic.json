@@ -1,0 +1,56 @@
+{
+  "scope": "Synthetic bounded INT4 random walk, 2x16 features, fixed 16x2 weights; exact updates",
+  "baseline": "Dense refresh: 16 tokens and 43 command clocks per frame, including clear, drain and full readback",
+  "limitations": "No host runtime, feature acquisition, board I/O delays, power, accuracy, or silicon measurements",
+  "seed": 9112026,
+  "results": [
+    {
+      "per_feature_change_attempt_probability": 0.0,
+      "frames": 2000,
+      "mean_tokens": 0.008,
+      "mean_command_clocks": 10.0165,
+      "dense_frames": 1,
+      "command_clock_ratio_vs_dense": 4.292916687465682
+    },
+    {
+      "per_feature_change_attempt_probability": 0.01,
+      "frames": 2000,
+      "mean_tokens": 0.33,
+      "mean_command_clocks": 10.6605,
+      "dense_frames": 1,
+      "command_clock_ratio_vs_dense": 4.033581914544346
+    },
+    {
+      "per_feature_change_attempt_probability": 0.05,
+      "frames": 2000,
+      "mean_tokens": 1.5535,
+      "mean_command_clocks": 13.1075,
+      "dense_frames": 1,
+      "command_clock_ratio_vs_dense": 3.2805645622735073
+    },
+    {
+      "per_feature_change_attempt_probability": 0.1,
+      "frames": 2000,
+      "mean_tokens": 2.943,
+      "mean_command_clocks": 15.8865,
+      "dense_frames": 1,
+      "command_clock_ratio_vs_dense": 2.7067006577912065
+    },
+    {
+      "per_feature_change_attempt_probability": 0.25,
+      "frames": 2000,
+      "mean_tokens": 6.6645,
+      "mean_command_clocks": 23.3295,
+      "dense_frames": 1,
+      "command_clock_ratio_vs_dense": 1.8431599477056946
+    },
+    {
+      "per_feature_change_attempt_probability": 1.0,
+      "frames": 2000,
+      "mean_tokens": 15.9315,
+      "mean_command_clocks": 42.795,
+      "dense_frames": 1864,
+      "command_clock_ratio_vs_dense": 1.0047902792382288
+    }
+  ]
+}
