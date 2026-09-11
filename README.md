@@ -8,6 +8,7 @@ Status: RTL and a pin-level verification suite are implemented. Physical impleme
 - [Executable arithmetic model](model/delta_reference.py)
 - [Chip interface and bring-up vectors](docs/info.md)
 - [RTL](src/project.v) and [pin-level tests](test/test.py)
+- [Physical board bring-up](docs/bringup.md)
 
 Run the model checks with `python3 model/delta_reference.py` from this directory. These checks validate arithmetic and workload counts, not clock-level behavior or silicon feasibility.
 

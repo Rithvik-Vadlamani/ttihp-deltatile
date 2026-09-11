@@ -13,6 +13,8 @@ jobs:
         uses: TinyTapeout/tt-gds-action@ttihp26b
         with:
           pdk: ihp-sg13g2
+      - name: Require clean final signoff metrics including clock fanout
+        run: python scripts/check_signoff.py
   precheck:
     needs: gds
     runs-on: ubuntu-24.04
