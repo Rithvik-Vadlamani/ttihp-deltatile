@@ -4,7 +4,7 @@
 
 Status: RTL tests, gate-level tests, the one-tile physical build, strict signoff metrics, and the official IHP26b precheck pass for implementation revision `72cf3db7bd78a53d63e1f8e8d39cbff5dc5a253c`. Fabrication submission/payment and physical silicon validation remain outstanding. Power and application accuracy have not been measured.
 
-The completed [v0.1.0 design release](https://github.com/Rithvik-Vadlamani/ttihp-deltatile/releases/tag/v0.1.0) contains the verified manufacturing files, exact source, datasheet, and verification evidence. Repository access is required to download this private release. See the [submission record](docs/submission.md) for the exact revision and package identity. Purchases and fabrication orders are excluded from the current task at the owner's request.
+The completed [v0.1.0 design release](https://github.com/Rithvik-Vadlamani/ttihp-deltatile/releases/tag/v0.1.0) contains the verified manufacturing files, exact source, datasheet, and verification evidence. The release is public and can be downloaded without an invitation. See the [submission record](docs/submission.md) for the exact revision and package identity. Purchases and fabrication orders are excluded from the current task at the owner's request.
 
 - [Design proposal and tapeout milestones](docs/deltatile-proposal.md)
 - [Executable arithmetic model](model/delta_reference.py)
